@@ -1,0 +1,5 @@
+mutation {
+    loginCandidate(contactEmail: "jdoes@gmail.com", password: "jdoes") {
+        token
+    }
+}

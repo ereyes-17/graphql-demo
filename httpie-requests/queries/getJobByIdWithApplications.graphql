@@ -1,0 +1,25 @@
+query {
+    job(id: 2) {
+        id
+        title
+        description
+        employer {
+            id
+            name
+            industry
+        }
+        applications {
+            id
+            candidate {
+                ...ApplicationCandidate
+            }
+        }
+    }
+}
+
+fragment ApplicationCandidate on CandidateObject {
+    id
+    firstName
+    lastName
+    contactEmail
+}

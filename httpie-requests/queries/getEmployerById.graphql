@@ -1,0 +1,16 @@
+query {
+    employer(id: 3) {
+        id
+        name
+        industry
+        jobs {
+            ...employerJobFields
+        }
+    }
+}
+
+fragment employerJobFields on JobObject {
+    id
+    title
+    description
+}

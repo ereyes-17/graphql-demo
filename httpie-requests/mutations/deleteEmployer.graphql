@@ -1,0 +1,5 @@
+mutation {
+    deleteEmployer(employerId: 8) {
+        success
+    }
+}

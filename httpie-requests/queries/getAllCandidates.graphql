@@ -1,0 +1,12 @@
+query {
+    candidates {
+        id
+        firstName
+        lastName
+        contactEmail
+        applications {
+            id
+            jobId
+        }
+    }
+}

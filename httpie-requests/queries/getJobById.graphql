@@ -1,0 +1,12 @@
+query {
+    job(id: 1) {
+        id
+        title
+        description
+        employer {
+            id
+            name
+            industry
+        }
+    }
+}

@@ -1,0 +1,5 @@
+mutation {
+    deleteJob(jobId: 4) {
+        success
+    }
+}

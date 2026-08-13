@@ -1,0 +1,9 @@
+mutation {
+    updateEmployer(employerId: 3, industry: "Space & Aerotech") {
+        employer {
+            id
+            name
+            industry
+        }
+    }
+}

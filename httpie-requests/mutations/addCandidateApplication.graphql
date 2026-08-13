@@ -1,0 +1,26 @@
+mutation {
+    addCandidateApplication(candidateId: 1, jobId: 2) {
+        candidateApplication {
+            id
+            candidate {
+                ...CandidateApplicationCandidate
+            }
+            job {
+                ...CandidateApplicationJob
+            }
+        }
+    }
+}
+
+fragment CandidateApplicationCandidate on CandidateObject {
+    id
+    firstName
+    lastName
+}
+
+fragment CandidateApplicationJob on JobObject {
+    id
+    title
+    description
+    employerId
+}

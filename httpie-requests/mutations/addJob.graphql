@@ -1,0 +1,14 @@
+mutation {
+    addJob(title: "AI Engineer", description: "Make AI work", employerId: 1) {
+        job {
+            id
+            title
+            description
+            employer {
+                id
+                name
+                industry
+            }
+        }
+    }
+}

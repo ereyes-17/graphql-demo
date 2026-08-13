@@ -1,0 +1,14 @@
+mutation {
+    updateJob(title: "AI Reverse Engineer", jobId: 4) {
+        job {
+            id
+            title
+            description
+            employer {
+                id
+                name
+                industry
+            }
+        }
+    }
+}

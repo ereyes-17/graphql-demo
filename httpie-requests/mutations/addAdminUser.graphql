@@ -1,0 +1,10 @@
+mutation {
+    addCandidate(firstName: "Ad", lastName: "Min", contactEmail: "admin@gmail.com", password: "admin", role: "admin") {
+        candidate {
+            firstName
+            lastName
+            contactEmail
+            role
+        }
+    }
+}

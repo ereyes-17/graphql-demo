@@ -1,0 +1,11 @@
+mutation {
+    addEmployer(name: "SpaceX", contactEmail: "hr@spacex.com") {
+        employer {
+            id
+            name
+            contactEmail
+            industry
+        }
+        authenticatedAs
+    }
+}
