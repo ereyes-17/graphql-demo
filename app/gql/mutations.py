@@ -1,6 +1,6 @@
 from graphene import Mutation, String, Field, Int, ObjectType, Boolean
 from graphql import GraphQLError
-from app.gql.types import JobObject, EmployerObject, CandidateObject, CandidateApplicationObject
+from app.gql.objs import JobObject, EmployerObject, CandidateObject, CandidateApplicationObject
 from app.db.models import Job, Employer, Candidate, CandidateApplication
 from app.db.database import Session
 from app.util.jwtutil import generate_token

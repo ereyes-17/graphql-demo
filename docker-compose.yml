@@ -16,5 +16,18 @@ services:
       timeout: 5s
       retries: 5
 
+  my-graphql-app:
+    image: ereyes2017/graphql-demo:0.0.1
+    container_name: my-graphql-app
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - app_data:/opt/app/data
+    environment:
+      DB_HOST: graphql_postgres
+    depends_on: [postgres]
+
 volumes:
   postgres_data:
+  app_data:

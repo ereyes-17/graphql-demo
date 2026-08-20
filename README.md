@@ -5,10 +5,14 @@
 Start the FastAPI application with uvicorn:
 
 ```bash
-uvicorn main:app --reload
+uvicorn app.main:app --reload
 ```
 
 The GraphQL endpoint will be available at `http://localhost:8000/graphql/`.
+
+## Docker Build & Deployment
+
+For instructions on building the Docker image, pushing it to Docker Hub, and running the application with Docker Compose, see [DOCKER.md](DOCKER.md).
 
 ## HTTPie Client
 
