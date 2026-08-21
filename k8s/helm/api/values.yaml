@@ -1,0 +1,23 @@
+microservice:
+  name:  graphql-demo-api
+  namespace: graphql-demo
+  replicas: 2
+
+workload:
+  image: ereyes2017/graphql-demo:latest
+  port: 8000
+  resources:
+    memory: "128Mi"
+    cpu: "500m"
+
+env:
+  DB_HOST: postgres.graphql-demo.svc.cluster.local
+  DB_PORT: "5432"
+  DB_NAME: graphql_db
+
+ingress:
+  host: graphql-demo.local
+
+secrets:
+  DB_USER: "cG9zdGdyZXM="
+  DB_PASSWORD: "cG9zdGdyZXM="

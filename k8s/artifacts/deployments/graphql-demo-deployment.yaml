@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: graphql-demo-api
+  namespace: graphql-demo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: graphql-demo-api
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: graphql-demo
+        app.kubernetes.io/component: api
+        app.kubernetes.io/instance: graphql-demo-api
+    spec:
+      containers:
+      - name: graphql-demo-api
+        image: ereyes2017/graphql-demo:latest
+        envFrom:
+          - configMapRef:
+              name: graphql-demo
+          - secretRef:
+              name: graphql-demo
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "500m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8000

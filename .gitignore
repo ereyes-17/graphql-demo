@@ -98,6 +98,9 @@ celerybeat.pid
 .venv
 env/
 venv/
+
+# Helm packages
+*.tgz
 ENV/
 env.bak/
 venv.bak/

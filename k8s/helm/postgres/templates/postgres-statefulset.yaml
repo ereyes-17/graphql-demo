@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.database.name }}
+  namespace: {{ .Values.database.namespace }}
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ .Values.database.name }}
+  serviceName: {{ .Values.database.name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ .Values.database.namespace }}
+        app.kubernetes.io/component: database
+        app.kubernetes.io/instance: {{ .Values.database.name }}
+    spec:
+      containers:
+      - name: {{ .Values.database.name }}
+        image: {{ .Values.workload.image }}
+        ports:
+        - containerPort: {{ .Values.workload.port }}
+          name: web
+        env:
+        - name: POSTGRES_DB
+          value: {{ .Values.env.DB_NAME }}
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.database.name }}-secret
+              key: DB_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.database.name }}-secret
+              key: DB_PASSWORD
+        volumeMounts:
+        - name: {{ .Values.workload.volumeMounts.one.name }}
+          mountPath: {{ .Values.workload.volumeMounts.one.mountPath }}
+  volumeClaimTemplates:
+  - metadata:
+      name: {{ .Values.workload.volumeMounts.one.name }}
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: {{ .Values.workload.volumeMounts.one.resources.requests.storage }}

@@ -1,5 +1,23 @@
 # Building a GraphQL API with Python
 
+## Project Structure
+
+```
+graphql-demo/
+├── app/                  # FastAPI/GraphQL application source
+│   ├── config/           # Configuration (DB_HOST, secrets, etc.)
+│   ├── db/               # Database models, session, seed data
+│   ├── gql/              # GraphQL queries, mutations, object types
+│   └── util/             # JWT utilities, request context, roles
+├── httpie-requests/      # Example GraphQL queries and mutations
+├── k8s/                  # Kubernetes manifests and Helm charts
+├── docker-compose.yml    # Local development with Postgres
+├── Dockerfile            # Container image build
+├── DOCKER.md             # Docker build and deployment guide
+├── requirements.txt      # Python dependencies
+└── README.md             # This file
+```
+
 ## Running the Server
 
 Start the FastAPI application with uvicorn:
@@ -13,6 +31,17 @@ The GraphQL endpoint will be available at `http://localhost:8000/graphql/`.
 ## Docker Build & Deployment
 
 For instructions on building the Docker image, pushing it to Docker Hub, and running the application with Docker Compose, see [DOCKER.md](DOCKER.md).
+
+## Kubernetes Deployment
+
+Kubernetes manifests and Helm charts live in the [k8s/](k8s/) directory.
+
+- For raw-manifest deployment instructions, including the NGINX Ingress controller and WSL2 port-forwarding, see [K8S_DEPLOY.md](K8S_DEPLOY.md).
+- For Helm-based deployment instructions, see [HELM_DEPLOY.md](HELM_DEPLOY.md).
+
+## Local Kubernetes Dashboard
+
+For instructions on deploying and accessing the Kubernetes Dashboard locally, see [K8S_DASHBOARD.md](K8S_DASHBOARD.md).
 
 ## HTTPie Client
 

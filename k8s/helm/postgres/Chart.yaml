@@ -1,0 +1,4 @@
+apiVersion: v2
+name: postgres
+description: Helm chart to deploy postgres in graphql-demo
+version: 1.0.0

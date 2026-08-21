@@ -1,0 +1,24 @@
+database:
+  name:  postgres
+  namespace: graphql-demo
+  replicas: 1
+
+workload:
+  image: postgres:16
+  port: 5432
+  resources:
+    memory: "128Mi"
+    cpu: "500m"
+  volumeMounts:
+    one:
+      name:  postgres-persistent-storage
+      mountPath:  /var/lib/postgresql/data
+      resources: 
+        requests:
+          storage: 1Gi
+env:
+  DB_NAME: graphql_db
+
+secrets:
+  DB_USER: "cG9zdGdyZXM="
+  DB_PASSWORD: "cG9zdGdyZXM="

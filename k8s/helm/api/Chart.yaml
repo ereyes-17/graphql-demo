@@ -1,0 +1,4 @@
+apiVersion: v2
+name: graphql-demo-api
+description: Helm chart to deploy graphql-demo-api
+version: 1.0.0
