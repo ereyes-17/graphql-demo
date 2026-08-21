@@ -13,7 +13,7 @@ docker build -t ereyes2017/graphql-demo:0.0.1 .
 To tag the image as `latest` as well:
 
 ```bash
-docker build -t ereyes2017/graphql-demo:0.0.1 -t ereyes2017/graphql-demo:latest .
+docker tag ereyes2017/graphql-demo:0.0.1 ereyes2017/graphql-demo:latest
 ```
 
 ## Push the Image to Docker Hub
