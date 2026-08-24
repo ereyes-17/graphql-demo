@@ -16,7 +16,7 @@ env:
   DB_NAME: graphql_db
 
 ingress:
-  host: graphql-demo.local
+  host: graphql-demo.api.com
 
 secrets:
   DB_USER: "cG9zdGdyZXM="

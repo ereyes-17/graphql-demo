@@ -35,6 +35,8 @@ spec:
             secretKeyRef:
               name: {{ .Values.database.name }}-secret
               key: DB_PASSWORD
+        - name: PGDATA
+          value: {{ .Values.env.PGDATA }}
         volumeMounts:
         - name: {{ .Values.workload.volumeMounts.one.name }}
           mountPath: {{ .Values.workload.volumeMounts.one.mountPath }}
@@ -43,6 +45,7 @@ spec:
       name: {{ .Values.workload.volumeMounts.one.name }}
     spec:
       accessModes: [ "ReadWriteOnce" ]
+      storageClassName: {{ .Values.workload.storageClassName }}
       resources:
         requests:
           storage: {{ .Values.workload.volumeMounts.one.resources.requests.storage }}

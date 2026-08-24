@@ -16,8 +16,10 @@ workload:
       resources: 
         requests:
           storage: 1Gi
+  storageClassName: "gp2"
 env:
   DB_NAME: graphql_db
+  PGDATA: /var/lib/postgresql/data/pgdata
 
 secrets:
   DB_USER: "cG9zdGdyZXM="
