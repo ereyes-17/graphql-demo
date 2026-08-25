@@ -1,6 +1,9 @@
 from typing import Any
-from graphene import Field, Int, List, ObjectType, Schema, String
-from app.db.models import Job, Employer, Candidate, CandidateApplication
+
+from graphene import Field, Int, List, ObjectType, String
+
+from app.db.models import Candidate, CandidateApplication, Employer, Job
+
 
 class EmployerObject(ObjectType):
     """GraphQL type representing an employer."""

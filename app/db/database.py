@@ -1,7 +1,8 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from app.db.models import Base, Employer, Job
+
 from app.config.config import DB_URL
+from app.db.models import Base, Employer, Job
 
 engine = create_engine(DB_URL)
 conn = engine.connect()

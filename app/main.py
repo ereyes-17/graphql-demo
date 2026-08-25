@@ -1,14 +1,12 @@
-from typing import Any
 
 from fastapi import FastAPI
 from graphene import Schema
 from starlette_graphene3 import GraphQLApp, make_playground_handler
 
-from app.db.database import seed_database, Session
-from app.db.models import Job, Employer
-from app.gql.queries import Query
+from app.db.database import Session, seed_database
+from app.db.models import Employer, Job
 from app.gql.mutations import Mutation
-
+from app.gql.queries import Query
 
 schema = Schema(query=Query, mutation=Mutation)
 

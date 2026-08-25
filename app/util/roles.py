@@ -1,6 +1,9 @@
-from app.util.requestcontext import get_authenticated_user
-from graphql import GraphQLError
 from functools import wraps
+
+from graphql import GraphQLError
+
+from app.util.requestcontext import get_authenticated_user
+
 
 def admin_user(func):
     @wraps(func)

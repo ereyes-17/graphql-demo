@@ -1,9 +1,17 @@
-from graphene import Field, Int, List, ObjectType, Schema, String
-from app.gql.objs import JobObject, EmployerObject, CandidateObject, CandidateApplicationObject
-from app.db.models import Job, Employer, Candidate, CandidateApplication
-from app.db.database import Session
-from app.util.roles import admin_user, authenticated_user
 from typing import Any
+
+from graphene import Field, Int, List, ObjectType
+
+from app.db.database import Session
+from app.db.models import Candidate, Employer, Job
+from app.gql.objs import (
+    CandidateApplicationObject,
+    CandidateObject,
+    EmployerObject,
+    JobObject,
+)
+from app.util.roles import admin_user, authenticated_user
+
 
 class Query(ObjectType):
     """Root GraphQL query type."""

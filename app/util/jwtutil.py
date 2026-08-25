@@ -1,12 +1,15 @@
+from datetime import datetime, timedelta, timezone
+
 import jwt
 from graphql import GraphQLError
-from datetime import datetime, timedelta, timezone
-from app.config.config import TOKEN_EXP_IN_MINUTES, SECRET_KEY, ALGORITHM
+
+from app.config.config import ALGORITHM, SECRET_KEY, TOKEN_EXP_IN_MINUTES
+
 
 def generate_token(contact_email):
     payload = {
         "sub": contact_email,
-        "exp": datetime.utcnow() + timedelta(minutes=TOKEN_EXP_IN_MINUTES)
+        "exp": datetime.now(timezone.utc) + timedelta(minutes=TOKEN_EXP_IN_MINUTES)
     }
 
     token = jwt.encode(payload=payload, key=SECRET_KEY, algorithm=ALGORITHM)

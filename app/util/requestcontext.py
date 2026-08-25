@@ -1,7 +1,9 @@
-from app.util.jwtutil import validate_token
+from graphql import GraphQLError
+
 from app.db.database import Session
 from app.db.models import Candidate
-from graphql import GraphQLError
+from app.util.jwtutil import validate_token
+
 
 def get_authenticated_user(context) -> Candidate:
     request_object = context.get('request')

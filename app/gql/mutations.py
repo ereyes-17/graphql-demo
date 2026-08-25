@@ -1,11 +1,18 @@
-from graphene import Mutation, String, Field, Int, ObjectType, Boolean
-from graphql import GraphQLError
-from app.gql.objs import JobObject, EmployerObject, CandidateObject, CandidateApplicationObject
-from app.db.models import Job, Employer, Candidate, CandidateApplication
-from app.db.database import Session
-from app.util.jwtutil import generate_token
-from app.util.roles import admin_user, authenticated_user, user_same_as_candidate
 from argon2 import PasswordHasher
+from argon2.exceptions import VerificationError
+from graphene import Boolean, Field, Int, Mutation, ObjectType, String
+from graphql import GraphQLError
+
+from app.db.database import Session
+from app.db.models import Candidate, CandidateApplication, Employer, Job
+from app.gql.objs import (
+    CandidateApplicationObject,
+    CandidateObject,
+    EmployerObject,
+    JobObject,
+)
+from app.util.jwtutil import generate_token
+from app.util.roles import admin_user, user_same_as_candidate
 
 ph = PasswordHasher()
 
@@ -47,7 +54,7 @@ class UpdateJob(Mutation):
         job = session.query(Job).filter(job_id == Job.id).first()
 
         if job is None:
-            raise Exception("job not found")
+            raise GraphQLError("job not found")
 
         job.title = title if title is not None else job.title
         job.description = description if description is not None else job.description
@@ -87,9 +94,6 @@ class AddEmployer(Mutation):
 
     employer = Field(lambda: EmployerObject)
 
-    # TEMP
-    authenticated_as = Field(String)
-
     @staticmethod
     @admin_user
     def mutate(root, info, name, contact_email, industry=None):
@@ -102,10 +106,7 @@ class AddEmployer(Mutation):
         session.commit()
         session.refresh(employer)
 
-        #return AddEmployer(employer=employer) <-- original
-
-        # TEMP
-        return AddEmployer(employer=employer, authenticated_as=user.contact_email)
+        return AddEmployer(employer=employer)
 
 class UpdateEmployer(Mutation):
     class Arguments:
@@ -203,12 +204,12 @@ class AddCandidateApplication(Mutation):
         candidate = session.query(Candidate).filter(candidate_id == Candidate.id).first()
 
         if candidate is None:
-            raise Exception("candidate does not exist")
+            raise GraphQLError("candidate does not exist")
 
         job = session.query(Job).filter(job_id == Job.id).first()
 
         if job is None:
-            raise Exception("job does not exist")
+            raise GraphQLError("job does not exist")
 
         candidate_application = CandidateApplication(candidate_id=candidate.id, job_id=job.id)
 
@@ -237,7 +238,7 @@ class LoginCandidate(Mutation):
 
         try:
             ph.verify(candidate.password_hash, password)
-        except:
+        except VerificationError:
             raise GraphQLError("invalid credentials")
 
         token = generate_token(contact_email)
