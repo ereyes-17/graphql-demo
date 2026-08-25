@@ -16,20 +16,8 @@ app = FastAPI()
 def startup_event():
     seed_database()
 
-@app.get("/employers")
+@app.get("/health")
 def get_employers():
-    session = Session()
-    employers = session.query(Employer).all()
-    session.close()
-
-    return employers
-
-@app.get("/jobs")
-def get_jobs():
-    session = Session()
-    jobs = session.query(Job).all()
-    session.close()
-
-    return jobs
+    return "I will survive!"
 
 app.mount("/graphql", GraphQLApp(schema=schema, on_get=make_playground_handler()))
