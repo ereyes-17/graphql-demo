@@ -1,0 +1,12 @@
+git
+github
+github-branch-source
+workflow-aggregator
+pipeline-stage-view
+blueocean
+credentials-binding
+amazon-ecr
+aws-credentials
+kubernetes
+kubernetes-cli
+job-dsl
