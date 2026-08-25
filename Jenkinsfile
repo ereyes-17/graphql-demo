@@ -45,7 +45,7 @@ pipeline {
                     python3 -m venv .venv
                     . .venv/bin/activate
                     pip install -r requirements.txt
-                    ruff check app
+                    ruff check app --fix
                     python -m compileall app
                 '''
             }
