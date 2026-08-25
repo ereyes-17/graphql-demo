@@ -8,7 +8,7 @@ pipeline {
     environment {
         AWS_REGION      = 'us-east-1'
         CLUSTER_NAME    = 'my-cluster'
-        IMAGE_NAME      = 'graphql-demo'
+        IMAGE_REPO      = 'ereyes2017/graphql-demo'
         HELM_CHART_API  = './k8s/helm/api'
         HELM_CHART_DB   = './k8s/helm/postgres'
         NAMESPACE       = 'graphql-demo'
@@ -53,21 +53,18 @@ pipeline {
 
         stage('Build & Push Docker Image') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding',
-                                  credentialsId: 'aws-credentials',
-                                  accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-                                  secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-credentials',
+                    usernameVariable: 'DOCKERHUB_USERNAME',
+                    passwordVariable: 'DOCKERHUB_TOKEN'
+                )]) {
                     script {
-                        env.AWS_ACCOUNT_ID = sh(
-                            script: 'aws sts get-caller-identity --query Account --output text',
-                            returnStdout: true
-                        ).trim()
-                        env.IMAGE_REPO = "${env.AWS_ACCOUNT_ID}.dkr.ecr.${env.AWS_REGION}.amazonaws.com/${env.IMAGE_NAME}"
                         env.IMAGE_TAG  = "${env.BUILD_NUMBER}"
                     }
                     sh '''
-                        aws ecr get-login-password --region ${AWS_REGION} | \
-                            docker login --username AWS --password-stdin ${IMAGE_REPO%/*}
+                        echo "$DOCKERHUB_TOKEN" | docker login \
+                            --username "$DOCKERHUB_USERNAME" \
+                            --password-stdin
 
                         docker build -t ${IMAGE_REPO}:${IMAGE_TAG} -t ${IMAGE_REPO}:latest .
 
