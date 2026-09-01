@@ -47,6 +47,7 @@ pipeline {
                     pip install -r requirements.txt
                     ruff check app --fix
                     python -m compileall app
+                    pytest -s app-tests/
                 '''
             }
         }
