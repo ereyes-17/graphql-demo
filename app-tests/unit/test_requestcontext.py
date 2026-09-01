@@ -16,6 +16,7 @@ class TestRequestContext(unittest.TestCase):
         )
     }
     def test_get_authenticated_user(self):
+        # TODO: What do I need to make sure database utilities provided for this tes?
         # TODO: Need a candidate created
         # TODO: Need to generate token
         pass
