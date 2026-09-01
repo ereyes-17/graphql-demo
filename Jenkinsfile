@@ -21,6 +21,19 @@ pipeline {
             }
         }
 
+        stage('Lint / Test') {
+            steps {
+                sh '''
+                    python3 -m venv .venv
+                    . .venv/bin/activate
+                    pip install -r requirements.txt
+                    ruff check app --fix
+                    python -m compileall app
+                    pytest -s app-tests/
+                '''
+            }
+        }
+
         stage('Configure AWS & Kubeconfig') {
             steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding',
@@ -36,19 +49,6 @@ pipeline {
                         kubectl config current-context
                     '''
                 }
-            }
-        }
-
-        stage('Lint / Test') {
-            steps {
-                sh '''
-                    python3 -m venv .venv
-                    . .venv/bin/activate
-                    pip install -r requirements.txt
-                    ruff check app --fix
-                    python -m compileall app
-                    pytest -s app-tests/
-                '''
             }
         }
 
