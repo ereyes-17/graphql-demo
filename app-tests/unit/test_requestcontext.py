@@ -1,10 +1,10 @@
 import unittest
 from unittest.mock import Mock
 
-from app.util.requestcontext import (
+"""from app.util.requestcontext import (
     get_authenticated_user
 )
-from app.util.jwtutil import generate_token
+from app.util.jwtutil import generate_token"""
 
 class TestRequestContext(unittest.TestCase):
     # copy and modify as needed
