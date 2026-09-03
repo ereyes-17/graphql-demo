@@ -1,9 +1,8 @@
 import unittest
+
 # TODO: Test exceptions like JWT expiration
-from app.util.jwtutil import (
-    generate_token,
-    validate_token
-)
+from app.util.jwtutil import generate_token, validate_token
+
 
 class TestJwtUtil(unittest.TestCase):
     def test_generate_token(self):

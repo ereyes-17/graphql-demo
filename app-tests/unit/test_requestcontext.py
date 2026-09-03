@@ -1,10 +1,10 @@
-import pytest
 from unittest.mock import MagicMock, Mock, patch
-from typing import Dict
+
+import pytest
 from graphql import GraphQLError
 
 from app.util.requestcontext import get_authenticated_user
-from app.util.jwtutil import generate_token
+
 
 @pytest.fixture
 def valid_context():
@@ -30,7 +30,7 @@ def invalid_context():
 @patch("app.util.requestcontext.validate_token")
 # fake Session obj
 @patch("app.util.requestcontext.Session")
-def test_get_authenticated_user_returns_user(mock_session: MagicMock, mock_validate_token: MagicMock, valid_context: Dict[str, Mock]):
+def test_get_authenticated_user_returns_user(mock_session: MagicMock, mock_validate_token: MagicMock, valid_context: dict[str, Mock]):
     # pytest passes the mocked objects based on how the names. ex: Session -> mock_session
     
     # setup mocking rules
@@ -53,7 +53,7 @@ def test_get_authenticated_user_returns_user(mock_session: MagicMock, mock_valid
 
 @patch("app.util.requestcontext.validate_token")
 @patch("app.util.requestcontext.Session")
-def test_get_authenticated_user_raises_user_exception(mock_session: MagicMock, mock_validate_token: MagicMock, valid_context: Dict[str, Mock]):
+def test_get_authenticated_user_raises_user_exception(mock_session: MagicMock, mock_validate_token: MagicMock, valid_context: dict[str, Mock]):
     mock_validate_token.return_value = {"sub": "unknown-user@example.com"}
     mock_session.return_value.query.return_value.filter.return_value.first.return_value = None
 
@@ -61,6 +61,6 @@ def test_get_authenticated_user_raises_user_exception(mock_session: MagicMock, m
         get_authenticated_user(valid_context)
 
 # for this test, the code won't hit the session or token logic due to invalid context passed in
-def test_get_authenticated_user_raises_invalid_context_exception(invalid_context: Dict[str, Mock]):
+def test_get_authenticated_user_raises_invalid_context_exception(invalid_context: dict[str, Mock]):
     with pytest.raises(GraphQLError, match="Missing bearer token"):
         get_authenticated_user(invalid_context)
