@@ -4,15 +4,22 @@ from sqlalchemy.orm import sessionmaker
 from app.config.config import DB_URL
 from app.db.models import Base, Employer, Job
 
-engine = create_engine(DB_URL)
-conn = engine.connect()
+conn = None
+session = None
+Session = None
 
 # metadata is a container that holds the table entities and their schemas
 # initializes the database
-Base.metadata.create_all(engine)
+def init_db():
+    global conn, session, Session
+    
+    engine = create_engine(DB_URL)
+    conn = engine.connect()
 
-Session = sessionmaker(bind=engine)
-session = Session()
+    Base.metadata.create_all(engine)
+
+    Session = sessionmaker(bind=engine)
+    session = Session()
 
 def seed_database():
     """Idempotently seed the database with sample employers and jobs."""
